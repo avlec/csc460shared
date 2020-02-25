@@ -9,7 +9,7 @@ set(CMAKE_VERBOSE_MAKEFILE true)
 set(PROGRAMMER wiring)
 
 # Needs to be updated when board is connected.
-set(DEVICE /dev/tty.usbmodem143201)
+set(DEVICE /dev/tty.usbmodem143301)
 
 # AVR Variables
 set(MCU atmega2560)
@@ -53,7 +53,7 @@ set(CMAKE_CXX_FLAGS "${CXXFLAGS}")
 set(CMAKE_ASM_FLAGS   "${CFLAGS}")
 
 # Voluntary switching toggle.
-add_definitions(-DVOLUNTARY)
+#add_definitions(-DVOLUNTARY)
 
 add_library(cswitch_lib STATIC cswitch.S)
 

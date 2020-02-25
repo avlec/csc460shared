@@ -293,6 +293,11 @@ void Task_Terminate()
    }
 }
 
+/*
+ * Pin Debugging
+ */
+
+
 
 /*============
   * A Simple Test 
@@ -352,7 +357,7 @@ _Noreturn void Ping()
   }
 }
 
-#ifdef VOLUNTARY
+#ifndef VOLUNTARY
 void Configure_Timer_Interrupt() {
     //Found in arduino forums here: https://forum.arduino.cc/index.php?topic=263813.0
     TCCR1A = 0; //Register set to 0
@@ -376,7 +381,7 @@ ISR(TIMER1_COMPA_vect, ISR_BLOCK) {
   */
 int main()
 {
-#ifdef VOLUNTARY
+#ifndef VOLUNTARY
     Clear_InterruptFlag();
     Enable_Interrupt();
     Configure_Timer_Interrupt();
