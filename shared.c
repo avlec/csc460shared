@@ -213,6 +213,21 @@ void Dispatch()
 }
 #pragma clang diagnostic pop
 
+/**
+  * Pin Debugging
+  */
+
+void DebugInit() {
+    DDRA = 0b11111111;
+    PORTA = 0b00000000;
+}
+
+inline void DebugToggle() {
+    if(PORTA)
+        PORTA = 0b00000000;
+    else
+        PORTA = 0b11111111;
+}
 
 /*================
   * RTOS  API  and Stubs
@@ -270,6 +285,9 @@ void Task_Create( voidfuncptr f)
   */
 void Task_Next() 
 {
+#ifdef DEBUG
+    DebugToggle();
+#endif
    if (KernelActive) {
      Disable_Interrupt();
      CurrentP ->state = READY;
@@ -293,12 +311,6 @@ void Task_Terminate()
    }
 }
 
-/*
- * Pin Debugging
- */
-
-
-
 /*============
   * A Simple Test 
   *============
@@ -310,6 +322,7 @@ void Task_Terminate()
   */
 _Noreturn void Ping()
 {
+
   int  x ;
   init_LED_D5();
   for(;;){
@@ -385,6 +398,10 @@ int main()
     Clear_InterruptFlag();
     Enable_Interrupt();
     Configure_Timer_Interrupt();
+#endif
+
+#ifdef DEBUG
+    DebugInit();
 #endif
 
     OS_Init();
